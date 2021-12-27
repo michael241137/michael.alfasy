@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>About me...</h1>
+    {% for key, val in profile.items() %}
+        <h2>{{ key }} : {{ val | lower() }}<h2>
+     {% endfor %}
+    <h2>University: {{university | default('unspecified', true)}}</h2>
+    <h2>Degrees:</h2>
+    <ol>
+        <li>{{ degrees[0] }}</li>
+        <li>{{ degrees[1] }}</li>
+    </ol>
+    <h2>Hobbies:</h2>
+    <ul>
+        {% for hobbie in hobbies %}
+            <li> {{hobbie}} </li>
+        {% endfor %}
+    </ul>
+    {% include 'footer.html' %}
+</body>
+</html>
