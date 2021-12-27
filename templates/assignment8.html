@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>assignment8</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h2>Hobbies:</h2>
+    <ul>
+        {% for hobbie in hobbies %}
+            <li> {{hobbie}} </li>
+        {% endfor %}
+    </ul>
+    {% include 'footer.html' %}
+</body>
+</html>
