@@ -1,10 +1,17 @@
-from flask import Flask, redirect, url_for
-from flask import render_template
-from flask import request
-from flask import session
+import json
+import requests
+import random
+from flask import Flask, redirect, url_for, request, Blueprint, jsonify
+from flask import render_template, session
+from mysqlx.protobuf.mysqlx_resultset_pb2 import JSON
+import asyncio
+import aiohttp
+from pages.assignment10.assignment10 import assignment10
+from interact_with_DB import interact_db
 app = Flask(__name__)
+app.register_blueprint(assignment10)
 app.secret_key = '123'
-@app.route('/Home')
+from flask import jsonify
 @app.route('/')
 def home_page():
     found = True
@@ -71,6 +78,37 @@ def assignment9_func():
         session['username']=username
         session['email']=email
         return render_template('assignment9.html')
+
+
+@app.route('/assignment11/outer_source')
+def assignment11_def():
+    return render_template('assignment11.html')
+
+
+
+
+@app.route('/assignment11/outer_source/json')
+def assignment11_def_json():
+    number = request.args['number']
+    res = requests.get("https://reqres.in/api/users/{}".format(number))
+    response = jsonify(res.json())
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route('/assignment11/users')
+def assignment11_users_def():
+        query = 'select  id,name,email from users;'
+        users = interact_db(query=query, query_type='fetch')
+        response = []
+        for user in users:
+            response.append({
+                "id": user[0],
+                "name": user[1],
+                "email": user[2]
+            })
+        return jsonify(users)
+        #return render_template('users.html', users=json.dumps(response))
 
 if __name__ == '__main__':
     app.run(debug=True)
