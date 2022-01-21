@@ -1,9 +1,21 @@
-  <header>
-            <a href = "/">Home</a> | <a href = "/about">About</a> | <a href = "/catalog">Catalog</a> |
-      <a href = "/assignment8">ass_8</a>| <a href = "/assignment9">ass_9</a>
-       {% if session.username %}
-        <a href = "/logout">logout</a>
-       {% else %}
-      <a href = "/login">login</a>
-       {% endif %}
-    </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+<hr>
+<a href="/">Main</a> | <a href="/about">About</a> | <a href="/experience">Experience</a> |<a href="/assignment8">Assignment-8</a>
+|<a href="/assignment9">assignment9</a>|<a href="/assignment10">assignment10</a>|<a href="/assignment11/outer_source">assignment11-outer source</a>|<a
+        href="/assignment11/users">assignment11-users</a>|<a href="/assignment12/restapi/5">assignment12-change number at Url</a>|<a
+        href="/assignment12/restapi/">assignment12 default</a>
+{% if session.username %}
+   | <a href="/logout">logout</a>
+    <h3>Hello {{ session.username }}</h3>
+{% endif %}
+
+
+<hr>
+</body>
+</html
