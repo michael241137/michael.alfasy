@@ -110,6 +110,25 @@ def assignment11_users_def():
         return jsonify(users)
         #return render_template('users.html', users=json.dumps(response))
 
+@app.route('/assignment12/restapi/', defaults={'user_id':1})
+@app.route('/assignment12/restapi/<int:user_id>')
+def get_users_def(user_id):
+    query = 'select  id,name,email from users where id=%s;' % user_id
+    users = interact_db(query=query, query_type='fetch')
+    if len(users) == 0 :
+        user_dict = {
+            'status' : 'failed' ,
+            'message' : 'user not found'
+        }
+    else:
+        user_dict = {
+            'status': 'success',
+            f'id': users[0].id,
+            'name': users[0].name,
+            'email': users[0].email
+        }
+    return jsonify(user_dict)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
